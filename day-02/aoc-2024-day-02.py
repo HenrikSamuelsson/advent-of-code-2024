@@ -1,19 +1,7 @@
 from os import path
 
-# Relative path to the file holding input data.
-file_path = path.relpath("day-02/data/puzzle-input-aoc-2024-day-02.txt")
 
-with open(file_path) as input_file:
-    input_lines = input_file.read().splitlines()
-
-print(input_lines)
-line_count = 0
-
-safe_reports_count = 0
-for line in input_lines:
-    report_chars = line.split()
-    report = [int(s) for s in report_chars]
-    print(report)
+def is_safe(report):
     report_is_safe = True
     if report[0] == report[1]:
         report_is_safe = False
@@ -47,12 +35,31 @@ for line in input_lines:
                 # Report here did not decrease here.
                 report_is_safe = False
                 break
-    
-    if report_is_safe:
-        print("Safe report number:", line_count)
+    return report_is_safe
+
+
+# Relative path to the file holding input data.
+file_path = path.relpath("day-02/data/puzzle-input-aoc-2024-day-02.txt")
+
+with open(file_path) as input_file:
+    input_lines = input_file.read().splitlines()
+
+safe_reports_count = 0
+damper_safe_reports_count = 0
+
+for line in input_lines:
+    report_chars = line.split()
+    report = [int(s) for s in report_chars]
+    if is_safe(report):
         safe_reports_count += 1
-        
-    line_count += 1
-        
+        damper_safe_reports_count += 1
+    else:
+        for i in range(len(report)):
+            report_copy = report.copy()
+            del report_copy[i]
+            if is_safe(report_copy):
+                damper_safe_reports_count += 1
+                break
+
 print("Answer part 1:", safe_reports_count)
-print("Answer part 2:", 0)
+print("Answer part 2:", damper_safe_reports_count)
