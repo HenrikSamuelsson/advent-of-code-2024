@@ -4,35 +4,28 @@ from os import path
 def is_safe(report):
     report_is_safe = True
     if report[0] == report[1]:
+        # Start of report is not increasing neither decreasing.
         report_is_safe = False
     elif report[0] < report[1]:
-        # Could be an increasing report, check entire report.
-        for i in range(1,len(report)):
-            if report[i-1] > report[i]:
-                # Report is not increasing here.
+        # Start of report is increasing report, check entire report.
+        for i in range(1, len(report)):
+            if report[i] - report[i-1] < 1:
+                # Report is not increasing in this section.
                 report_is_safe = False
                 break
             if report[i] - report[i-1] > 3:
-                # Report increased too much here.
-                report_is_safe = False
-                break
-            if report[i] - report[i-1] < 1:
-                # Report did not increase here.
+                # Report is increasing too much in this section.
                 report_is_safe = False
                 break
     else:
-        # Could be an decreasing report, check entire report.
-        for i in range(1,len(report)):
-            if report[i-1] < report[i]:
-                # Report is not decreasing here.
+        # Start of report is decreasing, check entire report.
+        for i in range(1, len(report)):
+            if report[i-1] - report[i] < 1:
+                # Report is not decreasing in this section.
                 report_is_safe = False
                 break
             if report[i-1] - report[i] > 3:
-                # Report decreased too much here.
-                report_is_safe = False
-                break
-            if report[i-1] - report[i] < 1:
-                # Report here did not decrease here.
+                # Report decreased too much in this section.
                 report_is_safe = False
                 break
     return report_is_safe
