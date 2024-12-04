@@ -1,7 +1,7 @@
 from os import path
 
 # Relative path to the file holding input data.
-file_path = path.relpath("day-04/data/test-input.txt")
+file_path = path.relpath("day-05/data/test-input.txt")
 
 with open(file_path) as input_file:
     input_lines = input_file.read().splitlines()
