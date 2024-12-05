@@ -2,16 +2,44 @@ from os import path
 
 
 def word_at_north(word, input_lines, line_count, col_count):
-    # Start by checking if word will fit.
+    # Start by checking if word will even fit to the north.
     if word_length > line_count + 1:  # Add 1 because line count starts at 0.
         # Word is too long to fit horizontally
         return False
     # Check if all characters in the word are present.
     for idx, c in enumerate(word):
         line = input_lines[line_count - idx]
-        if word[idx] != line[col_count]:
+        if c != line[col_count]:
             return False
     print("Word at north from line", line_count, "column", col_count)
+    return True
+
+
+def word_at_south(word, input_lines, line_count, col_count):
+    # Start by checking if word will even fit to the south.
+    if word_length > len(input_lines) - line_count:
+        # Word is too long to fit horizontally
+        return False
+    # Check if all characters in the word are present.
+    for idx, c in enumerate(word):
+        line = input_lines[line_count + idx]
+        if c != line[col_count]:
+            return False
+    print("Word at south from line", line_count, "column", col_count)
+    return True
+
+
+def word_at_west(word, input_lines, line_count, col_count):
+    # Start by checking if word will even fit to the west.
+    if word_length > col_count + 1:
+        # Word is too long to fit horizontally
+        return False
+    # Check if all characters in the word are present.
+    for idx, c in enumerate(word):
+        line = input_lines[line_count]
+        if c != line[col_count - idx]:
+            return False
+    print("Word at west from line", line_count, "column", col_count)
     return True
 
 
@@ -38,6 +66,10 @@ for line in input_lines:
     col_count = 0
     for position in line:
         if word_at_north(word, input_lines, line_count, col_count):
+            word_count += 1
+        if word_at_south(word, input_lines, line_count, col_count):
+            word_count += 1
+        if word_at_west(word, input_lines, line_count, col_count):
             word_count += 1
         col_count += 1
     line_count += 1
