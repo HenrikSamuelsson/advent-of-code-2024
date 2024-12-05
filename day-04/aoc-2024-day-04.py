@@ -1,10 +1,18 @@
 from os import path
 
 
-def word_at_north(word, c, line_count, col_count, lines_max, cols_max):
-    result = False
-    # TODO
-    return result
+def word_at_north(word, input_lines, line_count, col_count):
+    # Start by checking if word will fit.
+    if word_length > line_count + 1:  # Add 1 because line count starts at 0.
+        # Word is too long to fit horizontally
+        return False
+    # Check if all characters in the word are present.
+    for idx, c in enumerate(word):
+        line = input_lines[line_count - idx]
+        if word[idx] != line[col_count]:
+            return False
+    print("Word at north from line", line_count, "column", col_count)
+    return True
 
 
 # Relative path to the file holding input data.
@@ -28,8 +36,8 @@ word_count = 0
 line_count = 0
 for line in input_lines:
     col_count = 0
-    for c in line:
-        if word_at_north(word, c, line_count, col_count, lines_max, cols_max):
+    for position in line:
+        if word_at_north(word, input_lines, line_count, col_count):
             word_count += 1
         col_count += 1
     line_count += 1
