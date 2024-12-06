@@ -33,10 +33,10 @@ file_path = path.relpath("day-07/data/test-input.txt")
 with open(file_path) as input_file:
     input_lines = input_file.read().splitlines()
 
-y_size = len(input_lines) - 1
-x_size = len(input_lines[0]) - 1
+y_size = len(input_lines)
+x_size = len(input_lines[0])
 
-visited_locations = [['.']*x_size for _ in range(y_size)]
+visited_locations = [['.'] * x_size for _ in range(y_size)]
 
 start = Point(0, 0)
 direction = Direction.NORTH
