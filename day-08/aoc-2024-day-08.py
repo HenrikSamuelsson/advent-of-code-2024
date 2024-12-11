@@ -1,8 +1,7 @@
 from os import path
 
 # Relative path to the file holding input data.
-file_path = path.relpath("day-08/data/test-input-1.txt")
-
+file_path = path.relpath("day-08/data/test-input-2.txt")
 with open(file_path) as input_file:
     input_rows = input_file.read().splitlines()
 
@@ -17,6 +16,8 @@ for row_idx, row in enumerate(input_rows):
         if value != '.':
             antenna_map[(row_idx, col_idx)] = value
 
+for antenna in antenna_map:
+    print(antenna[0], antenna[1], antenna_map[antenna])
 
 print("Answer part 1:", 0)
 print("Answer part 2:", 0)
